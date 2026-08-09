@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mark Attendance</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+<h2 class="text-center mb-4">Mark Attendance</h2>
+
+<form action="/submit_attendance" method="POST">
+
+<!-- Subject -->
+<div class="mb-4">
+<label class="form-label"><b>Select Subject</b></label>
+
+<select name="subject" class="form-control" required>
+
+{% for subject in subjects %}
+<option value="{{subject.subject_code}}">
+{{subject.subject_name}}
+</option>
+{% endfor %}
+
+</select>
+</div>
+
+<!-- Division -->
+<div class="mb-3">
+<label><b>Select Division</b></label>
+
+<select name="division"
+class="form-control"
+onchange="window.location.href='/mark?division=' + this.value">
+
+<option value="">All</option>
+<option value="A">Division A</option>
+<option value="B">Division B</option>
+
+</select>
+</div>
+
+<!-- Buttons -->
+<div class="mb-3">
+
+<button type="button" class="btn btn-success btn-sm" onclick="markAll()">
+Mark All Present
+</button>
+
+<button type="button" class="btn btn-danger btn-sm" onclick="unmarkAll()">
+Uncheck All
+</button>
+
+<button type="button" class="btn btn-primary btn-sm" onclick="toggleAll()">
+Toggle All
+</button>
+
+</div>
+
+<table class="table table-bordered table-striped">
+
+<thead class="table-dark">
+<tr>
+<th>Student ID</th>
+<th>Name</th>
+<th>Present</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for student in students %}
+<tr>
+
+<td>{{student.student_id}}</td>
+<td>{{student.name}}</td>
+
+<td>
+<input type="checkbox"
+name="status_{{student.student_id}}"
+value="Present">
+</td>
+
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+
+<div class="mt-4">
+
+<button type="submit" class="btn btn-success">
+Submit Attendance
+</button>
+
+<a href="/professor" class="btn btn-secondary">
+Back
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+
+function markAll() {
+    let checkboxes = document.querySelectorAll("input[type='checkbox']");
+    checkboxes.forEach(cb => cb.checked = true);
+}
+
+function unmarkAll() {
+    let checkboxes = document.querySelectorAll("input[type='checkbox']");
+    checkboxes.forEach(cb => cb.checked = false);
+}
+
+function toggleAll() {
+
+    let checkboxes = document.querySelectorAll("input[type='checkbox']");
+    let allChecked = true;
+
+    checkboxes.forEach(cb => {
+        if (!cb.checked) {
+            allChecked = false;
+        }
+    });
+
+    checkboxes.forEach(cb => {
+        cb.checked = !allChecked;
+    });
+}
+
+</script>
+
+</body>
+</html>

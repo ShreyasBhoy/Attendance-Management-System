@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Attendance Predictor</title>
+
+<style>
+body{
+font-family:'Segoe UI';
+background:#f4f6fb;
+padding:20px;
+}
+
+.container{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+text-align:center;
+border-bottom:1px solid #ddd;
+}
+
+th{
+background:#2f3640;
+color:white;
+}
+
+.safe{
+color:green;
+font-weight:bold;
+}
+
+.risk{
+color:red;
+font-weight:bold;
+}
+
+.back{
+display:inline-block;
+margin-bottom:15px;
+padding:8px 14px;
+background:#2f3640;
+color:white;
+text-decoration:none;
+border-radius:5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Attendance Requirement Predictor</h2>
+
+<a href="/admin" class="back">← Back</a>
+
+<table>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Current %</th>
+<th>Lectures Needed</th>
+<th>Remaining</th>
+<th>Status</th>
+</tr>
+
+{% for s in data %}
+<tr>
+<td>{{s.id}}</td>
+<td>{{s.name}}</td>
+<td>{{s.current_percent}}%</td>
+<td>{{s.lectures_needed}}</td>
+<td>{{s.remaining_lectures}}</td>
+<td class="{{ 'safe' if s.status=='Achievable' else 'risk' }}">
+{{s.status}}
+</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>

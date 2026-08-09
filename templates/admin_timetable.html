@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Class Timetable</title>
+
+<style>
+body{
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background:#eef2f7;
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.header{
+    text-align:center;
+    margin-bottom:5px;
+}
+
+.header h2{
+    margin:0;
+    color:#2c3e50;
+}
+
+.header h3{
+    margin:2px 0 10px;
+    color:#555;
+    font-weight:500;
+}
+
+.info{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:15px;
+    font-weight:600;
+    color:#333;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    overflow:hidden;
+    border-radius:8px;
+}
+
+th,td{
+    border:1px solid #dcdde1;
+    text-align:center;
+    padding:12px;
+}
+
+th{
+    background:linear-gradient(135deg,#2f3640,#353b48);
+    color:white;
+    font-size:14px;
+}
+
+td{
+    font-size:14px;
+}
+
+.day{
+    font-weight:bold;
+    background:#f7f9fc;
+}
+
+.lunch{
+    writing-mode:vertical-rl;
+    text-orientation:upright;
+    font-weight:bold;
+    letter-spacing:3px;
+    background:#ffeaa7;
+    color:#2d3436;
+}
+
+tr:hover td{
+    background:#f1f7ff;
+    transition:0.2s;
+}
+
+@media print{
+    body{
+        background:white;
+    }
+    .container{
+        box-shadow:none;
+    }
+}
+
+.back-btn{
+display:inline-block;
+margin:10px 0 15px 0;
+padding:8px 18px;
+background:#2f3640;
+color:white;
+text-decoration:none;
+border-radius:6px;
+font-size:14px;
+font-weight:500;
+transition:0.2s;
+}
+
+.back-btn:hover{
+background:#1e272e;
+color:white;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<div class="header">
+<h2>Saraswati College of Engineering</h2>
+<h3>Department of Computer Engineering</h3>
+</div>
+
+<div class="info">
+<div>CLASS/SEM: SE(AI&ML)</div>
+<div>CLASSROOM NO.: S25</div>
+<div>CLASS ADVISOR: Prof. Rashmi S</div>
+</div>
+<a href="/admin" class="back-btn">← Back to Dashboard</a>
+<table>
+
+<tr>
+<th>Day</th>
+<th>1st Lect<br>9:30-10:30</th>
+<th>2nd Lect<br>10:30-11:30</th>
+<th>3rd Lect<br>11:30-12:30</th>
+<th>4th Lect<br>12:30-1:30</th>
+<th class="lunch" rowspan="6">LUNCH</th>
+<th>5th Lect<br>2:00-3:00</th>
+<th>6th Lect<br>3:00-4:00</th>
+</tr>
+
+<tr>
+<td class="day">Monday</td>
+<td>DBMS</td>
+<td>OS</td>
+<td>CT</td>
+<td>IOT</td>
+<td>Mini Project</td>
+<td>OE</td>
+</tr>
+
+<tr>
+<td class="day">Tuesday</td>
+<td>IOT LAB</td>
+<td>IOT LAB</td>
+<td>DT</td>
+<td>DBMS</td>
+<td>IOT</td>
+<td>OE</td>
+</tr>
+
+<tr>
+<td class="day">Wednesday</td>
+<td>DBMS LAB</td>
+<td>DBMS LAB</td>
+<td>CT</td>
+<td>OS</td>
+<td>IOT</td>
+<td></td>
+</tr>
+
+<tr>
+<td class="day">Thursday</td>
+<td>CT</td>
+<td>OS LAB</td>
+<td>OS LAB</td>
+<td>OS</td>
+<td>IOT</td>
+<td></td>
+</tr>
+
+<tr>
+<td class="day">Friday</td>
+<td>OS</td>
+<td>CT</td>
+<td>DBMS</td>
+<td>DT</td>
+<td>DBMS</td>
+<td></td>
+</tr>
+
+</table>
+
+</div>
+
+</body>
+</html>

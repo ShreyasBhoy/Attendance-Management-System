@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Low Attendance</title>
+
+<style>
+body{
+font-family:'Segoe UI', Arial;
+background:#eef2f7;
+padding:20px;
+}
+
+.container{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+h2{
+text-align:center;
+color:#2f3640;
+margin-bottom:20px;
+}
+
+.back-btn{
+display:inline-block;
+margin-bottom:15px;
+padding:8px 16px;
+background:#2f3640;
+color:white;
+text-decoration:none;
+border-radius:6px;
+}
+
+.back-btn:hover{
+background:#1e272e;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:12px;
+text-align:center;
+border-bottom:1px solid #ddd;
+}
+
+th{
+background:#2f3640;
+color:white;
+}
+
+tr:hover{
+background:#f1f7ff;
+}
+
+.low{
+color:#e84118;
+font-weight:bold;
+}
+
+.warning{
+background:#fff3cd;
+}
+
+.header{
+text-align:center;
+margin-bottom:10px;
+}
+
+.header h2{
+margin:0;
+color:#2f3640;
+}
+
+.header h3{
+margin:3px 0 15px;
+color:#555;
+font-weight:500;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="header">
+<h2>Saraswati College of Engineering</h2>
+<h3>Department of Computer Engineering</h3>
+</div>
+
+<h2>Low Attendance Students</h2>
+
+<a href="/admin" class="back-btn">← Back</a>
+
+<table>
+<tr>
+<th>Student ID</th>
+<th>Name</th>
+<th>Division</th>
+<th>Attendance %</th>
+</tr>
+
+{% for s in students %}
+<tr class="warning">
+<td>{{s.id}}</td>
+<td>{{s.name}}</td>
+<td>{{s.division}}</td>
+<td class="low">{{s.percent}}%</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>

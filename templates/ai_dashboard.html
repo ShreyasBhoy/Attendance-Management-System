@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<style>
+.badge-pass { background-color: #198754; }
+.badge-risk { background-color: #dc3545; }
+</style>
+
+</head>
+
+<body class="bg-light">
+
+<div class="container my-4">
+
+<h2 class="mb-4 text-center">📊 AI Student Performance Dashboard</h2>
+
+<!-- TABLE -->
+<div class="card shadow-sm mb-4">
+<div class="card-body">
+
+<h5 class="card-title">Student Predictions</h5>
+
+<div class="table-responsive">
+<table class="table table-hover align-middle">
+
+<thead class="table-dark">
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Attendance %</th>
+<th>Avg Marks</th>
+<th>Needed </th>
+<th>Remaining</th>
+<th>Prediction</th>
+<th>Achievable</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for s in students %}
+<tr class="{% if s.prediction == 'AT RISK' %}table-danger{% else %}table-success{% endif %}">
+
+<td>{{ s.id }}</td>
+<td>{{ s.name }}</td>
+<td>{{ s.attendance }}%</td>
+<td>{{ s.avg_marks }}</td>
+
+<td>{{ s.needed if s.needed is not none else 0 }}</td>
+<td>{{ s.remaining if s.remaining is not none else 0 }}</td>
+
+<td>
+<span class="badge {% if s.prediction == 'AT RISK' %}badge-risk{% else %}badge-pass{% endif %}">
+{{ s.prediction }}
+</span>
+</td>
+
+<td>
+{% if s.achievable %}
+<span class="badge bg-success">YES</span>
+{% else %}
+<span class="badge bg-danger">NO</span>
+{% endif %}
+</td>
+
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+
+<!-- CHARTS -->
+<div class="row">
+
+<div class="col-md-6 mb-4">
+<div class="card shadow-sm">
+<div class="card-body">
+<h5 class="card-title">Attendance vs Avg Marks</h5>
+<div id="attendance_marks_chart"></div>
+</div>
+</div>
+</div>
+
+<div class="col-md-6 mb-4">
+<div class="card shadow-sm">
+<div class="card-body">
+<h5 class="card-title">Prediction Distribution</h5>
+<div id="prediction_chart"></div>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+var students = {{ students | tojson }};
+
+// Scatter
+var scatterData = {
+x: students.map(s => s.attendance),
+y: students.map(s => s.avg_marks),
+text: students.map(s => s.name),
+mode: 'markers',
+type: 'scatter',
+marker: {
+size: 12,
+color: students.map(s => s.prediction === 'AT RISK' ? 'red' : 'green')
+}
+};
+
+Plotly.newPlot('attendance_marks_chart', [scatterData], {
+xaxis: {title: 'Attendance %'},
+yaxis: {title: 'Average Marks'},
+margin: {t: 30}
+});
+
+// Pie
+var counts = {'PASS':0, 'AT RISK':0};
+
+students.forEach(s => {
+counts[s.prediction] += 1;
+});
+
+var pieData = [{
+values: [counts['PASS'], counts['AT RISK']],
+labels: ['PASS','AT RISK'],
+type: 'pie'
+}];
+
+Plotly.newPlot('prediction_chart', pieData, {
+margin: {t: 30}
+});
+
+</script>
+
+<div class="text-center">
+<a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+</div>
+
+</body>
+</html>

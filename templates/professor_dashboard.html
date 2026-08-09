@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Professor Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+    background: #f5f7fb;
+}
+
+/* Card hover effect */
+.card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Gradient button */
+.btn-gradient {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    border: none;
+    color: white;
+}
+
+/* Section title */
+.section-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-dark shadow-sm">
+<div class="container-fluid">
+<span class="navbar-brand fw-bold">Professor Panel</span>
+
+<div class="d-flex align-items-center">
+<span class="text-white me-3">Welcome, {{ name }} 👋</span>
+<div id="clock" class="text-white me-3"></div>
+<a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+</div>
+
+</div>
+</nav>
+
+<div class="container mt-4">
+
+<h2 class="text-center fw-bold mb-4">Professor Dashboard</h2>
+
+<!-- Quick Stats -->
+<div class="row text-center mb-4">
+
+<div class="col-md-3">
+<div class="card shadow-sm">
+<div class="card-body">
+<i class="bi bi-people-fill fs-2 text-primary"></i>
+<h6>Total Students</h6>
+<h5>136</h5>
+<span class="badge bg-success">Enrolled</span>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card shadow-sm">
+<div class="card-body">
+<i class="bi bi-journal-text fs-2 text-primary"></i>
+<h6>Classes Today</h6>
+<h5>3</h5>
+<span class="badge bg-primary">Scheduled</span>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card shadow-sm">
+<div class="card-body">
+<i class="bi bi-exclamation-circle fs-2 text-danger"></i>
+<h6>Low Attendance</h6>
+<h5>7</h5>
+<span class="badge bg-danger">Below 75%</span>
+</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card shadow-sm">
+<div class="card-body">
+<i class="bi bi-bar-chart-line fs-2 text-danger"></i>
+<h6>Avg Attendance</h6>
+<h5>82%</h5>
+<span class="badge bg-success">Good</span>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+<!-- Buttons -->
+<a href="/timetable" class="btn btn-dark w-100 mb-3">
+<i class="bi bi-calendar3"></i> View Timetable
+</a>
+
+<a href="{{ url_for('ai_dashboard') }}" class="btn btn-gradient w-100 mb-4">
+🧠 View AI Dashboard
+</a>
+
+<hr>
+
+<h5 class="section-title">Quick Actions</h5>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="card shadow">
+<div class="card-body text-center">
+<h5><i class="bi bi-check2-square text-success"></i> Mark Attendance</h5>
+<a href="/mark" class="btn btn-success w-100 mt-2">
+Open
+</a>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card shadow">
+<div class="card-body text-center">
+<h5><i class="bi bi-table text-info"></i> View Records</h5>
+<a href="/view" class="btn btn-info w-100 mt-2">
+Open
+</a>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card shadow">
+<div class="card-body text-center">
+<h5><i class="bi bi-upload text-warning"></i> Upload Excel</h5>
+<a href="/upload" class="btn btn-warning w-100 mt-2">
+Open
+</a>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card shadow">
+<div class="card-body text-center">
+<h5><i class="bi bi-download text-secondary"></i> Download Excel</h5>
+<a href="/export" class="btn btn-secondary w-100 mt-2">
+Open
+</a>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card shadow">
+<div class="card-body text-center">
+<h5><i class="bi bi-file-earmark-arrow-down text-warning"></i> Export Attendance</h5>
+<a href="/export_attendance" class="btn btn-warning w-100 mt-2">
+Open
+</a>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card shadow">
+<div class="card-body text-center">
+<h5><i class="bi bi-award text-success"></i> Upload Marks</h5>
+<a href="/upload_marks" class="btn btn-success w-100 mt-2">
+Open
+</a>
+</div>
+</div>
+</div>
+
+<!-- Chart -->
+<div class="card shadow-sm mb-4">
+<div class="card-body">
+<h5 class="section-title">Subject-wise Attendance</h5>
+<canvas id="attendanceChart"></canvas>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- Chart Script -->
+<script>
+new Chart(document.getElementById('attendanceChart'), {
+    type: 'bar',
+    data: {
+        labels: ['IOT', 'DBMS', 'OS'],
+        datasets: [{
+            label: 'Attendance %',
+            data: [82, 75, 68]
+        }]
+    }
+});
+</script>
+
+<!-- Clock -->
+<script>
+setInterval(() => {
+  document.getElementById("clock").innerHTML =
+    new Date().toLocaleTimeString();
+}, 1000);
+</script>
+
+</body>
+</html>

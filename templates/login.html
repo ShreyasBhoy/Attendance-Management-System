@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Attendance System</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+</head>
+<div class="text-center mb-2">
+    <img src="{{ url_for('static', filename='logo.png') }}"
+         alt="College Logo"
+         style="width:50%; max-width:700px;">
+</div>
+<body class="bg-light">
+<div class="container mt-5">
+<div class="text-center mb-4">
+<h2>Saraswati College of Engineering</h2>
+<h4>Department of Artificial Intelligence & Machine Learning</h4>
+<p class="text-muted">Student Attendance Management System</p>
+
+
+<div class="row align-items-center mt-4">
+
+<!-- Notice LEFT -->
+<div class="col-md-3">
+<div class="card p-3 shadow-sm">
+<h5>Notice</h5>
+<ul>
+<li>Minimum 75% attendance required</li>
+<li>Upload marks before deadline</li>
+<li>Contact admin for issues</li>
+</ul>
+</div>
+</div>
+
+<!-- Login CENTER -->
+<div class="col-md-6">
+<div class="card shadow">
+<div class="card-body">
+
+<h4 class="text-center mb-3">Login</h4>
+
+<form method="POST" action="/multi_login">
+
+<div class="mb-3">
+<label>User ID</label>
+<input type="text" name="userid" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Password</label>
+<input type="password" name="password" class="form-control">
+</div>
+
+<div class="mb-3">
+<label>Role</label>
+<select name="role" class="form-control">
+<option value="Student">Student</option>
+<option value="Professor">Professor</option>
+<option value="Admin">Admin</option>
+</select>
+</div>
+
+<div class="d-grid">
+<button type="submit" class="btn btn-primary">Login</button>
+</div>
+
+</form>
+
+</div>
+</div>
+</div>
+
+<!-- Features RIGHT -->
+<div class="col-md-3">
+<div class="card p-3 shadow-sm">
+<h5>Features</h5>
+<ul class="list-unstyled">
+<li><i class="bi bi-check-circle-fill text-success"></i> Attendance Tracking</li>
+<li><i class="bi bi-graph-up text-primary"></i> Result Management</li>
+<li><i class="bi bi-calendar-event text-warning"></i> Timetable Access</li>
+<li><i class="bi bi-award text-danger"></i> Grade System</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+
+
+</body>
+<footer class="text-center mt-5 text-muted">
+<hr>
+<p>Saraswati College of Engineering | SE-AIML Mini Project 2026</p>
+</footer>
+</html>

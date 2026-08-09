@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<style>
+
+/* Smooth UI */
+body {
+    animation: fadeIn 0.5s ease-in;
+}
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Buttons */
+.btn-custom {
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* Navbar Gradient */
+.navbar {
+    background: linear-gradient(90deg,#4facfe,#00f2fe);
+}
+
+</style>
+
+</head>
+
+<body class="bg-light">
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark shadow-sm">
+<div class="container-fluid">
+<span class="navbar-brand fw-bold">🎓 Student Panel</span>
+<div>
+
+<a href="/attendance_view" class="btn btn-light btn-sm me-2">Attendance</a>
+
+<a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+</div>
+</div>
+</nav>
+
+<div class="container mt-4">
+
+<h3 class="mb-4">Welcome {{ name }}</h3>
+
+<!-- Quick Stats -->
+<div class="row text-center mb-4">
+
+<div class="col-md-3">
+<div class="card p-3">
+<i class="bi bi-bar-chart fs-3 text-success"></i>
+<h6>Attendance</h6>
+<h3 class="{{ 'text-success' if overall >= 75 else 'text-danger' }}">
+{{ overall }}%
+</h3>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card p-3">
+<i class="bi bi-exclamation-triangle fs-3 text-danger"></i>
+<h6>Low Subjects</h6>
+<h3>{{ low_count }}</h3>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card p-3">
+<i class="bi bi-award fs-3 text-primary"></i>
+<h6>Avg Marks</h6>
+<h3>{{ avg_marks }}</h3>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card p-3">
+<i class="bi bi-robot fs-3 text-dark"></i>
+<h6>AI Status</h6>
+<h3 class="{{ 'text-success' if overall >= 75 else 'text-danger' }}">
+{{ 'SAFE' if overall >= 75 else 'AT RISK' }}
+</h3>
+</div>
+</div>
+
+</div>
+
+<!-- AI Insight -->
+<div class="alert alert-warning shadow-sm">
+⚠️ <b>AI Insight:</b>
+{% if overall < 75 %}
+Your attendance is below 75%. Attend more lectures to stay safe.
+{% else %}
+You are performing well. Keep it up!
+{% endif %}
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+
+<div class="col-md-6">
+<a href="/attendance_view" class="btn btn-info btn-custom w-100">
+<i class="bi bi-calendar-check"></i> View Attendance
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="/result" class="btn btn-success btn-custom w-100">
+<i class="bi bi-graph-up"></i> View Result
+</a>
+</div>
+
+<div class="col-md-12 mt-2">
+<a href="/student_subject_prediction" class="btn btn-warning btn-custom w-100">
+📊 Subject-wise ML Charts
+</a>
+</div>
+
+</div>
+
+<!-- Attendance Table -->
+<div class="card">
+<div class="card-body">
+
+<h5 class="mb-3">Subject-wise Attendance</h5>
+
+<table class="table table-hover align-middle">
+
+<thead class="table-dark">
+<tr>
+<th>Subject</th>
+<th>Present</th>
+<th>Total</th>
+<th>Progress</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody>
+{% for s in subjects %}
+<tr class="{% if s.percent < 75 %}table-danger{% else %}table-success{% endif %}">
+
+<td>{{ s.name }}</td>
+<td>{{ s.present }}</td>
+<td>{{ s.total }}</td>
+
+<td>
+<div class="progress" style="height: 20px;">
+<div class="progress-bar 
+{% if s.percent < 75 %}bg-danger{% else %}bg-success{% endif %}"
+style="width: {{ s.percent }}%">
+{{ s.percent }}%
+</div>
+</div>
+</td>
+
+<td>
+{% if s.percent < 75 %}
+<span class="badge bg-danger">AT RISK</span>
+{% else %}
+<span class="badge bg-success">SAFE</span>
+{% endif %}
+</td>
+
+</tr>
+{% endfor %}
+</tbody>
+
+</table>
+
+</div>
+</div>
+
+</div>
+
+</body>
+</html>

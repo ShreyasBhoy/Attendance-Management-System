@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Upload Marks</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-4">
+
+<h3>Upload Marks (Manual)</h3>
+
+<form method="POST">
+
+<div class="mb-3">
+<label><b>Select Division</b></label>
+
+<select class="form-control"
+onchange="window.location.href='/upload_marks?division=' + this.value">
+
+<option value="">All</option>
+<option value="A">Division A</option>
+<option value="B">Division B</option>
+
+</select>
+</div>
+
+<label><b>Student</b></label>
+<select name="student_id" class="form-control">
+{% for s in students %}
+<option value="{{ s.student_id }}">
+{{ s.student_id }} - {{ s.name }}
+</option>
+{% endfor %}
+</select>
+
+<label class="mt-2"><b>Subject</b></label>
+<select name="subject_code" class="form-control">
+{% for sub in subjects %}
+<option value="{{ sub.subject_code }}">
+{{ sub.subject_code }}
+</option>
+{% endfor %}
+</select>
+
+<input type="number" name="internal" placeholder="Internal Marks" class="form-control mb-2">
+<input type="number" name="external" placeholder="External Marks" class="form-control mb-2">
+<input type="number" name="submission" placeholder="Submission Marks" class="form-control mb-2">
+
+<button class="btn btn-success mt-2">Upload Manual</button>
+
+</form>
+
+<hr>
+
+<h3>Upload Marks via Excel</h3>
+
+<form method="POST" enctype="multipart/form-data">
+    
+    <label class="form-label">Upload Excel</label>
+    <input type="file" name="file" class="form-control" required>
+
+    <button type="submit" class="btn btn-primary mt-2">
+        Upload Excel
+    </button>
+
+</form>
+
+<hr>
+
+<a href="/logout" class="btn btn-danger">Logout</a>
+
+</body>
+</html>

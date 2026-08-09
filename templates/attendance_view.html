@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance View</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-4">
+
+<h3>My Attendance</h3>
+
+<h5>Overall Attendance: {{ percentage }}%</h5>
+
+{% if percentage < 75 %}
+<div class="alert alert-danger">
+Low Attendance! Minimum required 75%
+</div>
+{% endif %}
+
+<table class="table table-bordered mt-3">
+<tr>
+<th>Date</th>
+<th>Subject</th>
+<th>Status</th>
+</tr>
+
+{% for d in data %}
+<tr>
+<td>{{ d.date }}</td>
+<td>{{ d.subject_code }}</td>
+<td>{{ d.status }}</td>
+</tr>
+{% endfor %}
+
+</table>
+<a href="/logout" class="btn btn-danger">Logout</a>
+</body>
+</html>

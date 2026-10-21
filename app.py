@@ -6,13 +6,23 @@ from datetime import date, timedelta
 import pickle
 import numpy as np
 
-model = pickle.load(open("model.pkl","rb"))
-scaler = pickle.load(open("scaler.pkl","rb"))
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+with open(os.path.join(BASE_DIR, "model.pkl"), "rb") as f:
+    model = pickle.load(f)
+
+with open(os.path.join(BASE_DIR, "scaler.pkl"), "rb") as f:
+    scaler = pickle.load(f)
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
-app.secret_key = "attendance_secret"
+app.secret_key = os.environ.get("SECRET_KEY")
+
+if not app.secret_key:
+    raise RuntimeError("SECRET_KEY environment variable is not configured")
 
 db.init_app(app)
 

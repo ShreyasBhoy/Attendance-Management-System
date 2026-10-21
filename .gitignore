@@ -1,0 +1,31 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# IDE configuration
+.idea/
+.vscode/
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Local database and instance files
+instance/
+
+# Student and attendance spreadsheets
+students.xlsx
+attendance.xlsx
+
+# Other local database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Test cache
+.pytest_cache/

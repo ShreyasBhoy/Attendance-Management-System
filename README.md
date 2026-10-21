@@ -5,7 +5,7 @@ A web-based Student Attendance Management System built using Python Flask and Po
 
 ## 🚀 Live Demo
 
-- **Live Website:** [Open Attendance Management System]([YOUR_RENDER_URL_HERE](https://attendance-management-system-j5bm.onrender.com))
+- **Live Website:** [Open Attendance Management System](https://attendance-management-system-j5bm.onrender.com)
 - **GitHub Repository:** https://github.com/ShreyasBhoy/Attendance-Management-System
 
 ## 📌 Project Overview
